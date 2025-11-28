@@ -88,6 +88,9 @@ body.hovering .cursor-outline {
     width: 100%;
     z-index: 999;
     mix-blend-mode: normal;
+    will-change: transform;
+    background-color: var(--color-brand);
+    transition: padding 0.3s ease;
 }
 
 .logo {
@@ -870,16 +873,22 @@ body.no-scroll {
         gap: 3rem;
     }
 
-    .about-image,
+    .about-video,
     .about-text {
         width: 100%;
+    }
+
+    .about-video .video-wrapper {
+        aspect-ratio: 3/4;
+        max-width: 500px;
+        margin: 0 auto;
     }
 
     .badge-spin {
         width: 80px;
         height: 80px;
-        bottom: -20px;
-        left: -10px;
+        bottom: -30px;
+        left: 60px;
     }
 }
 

@@ -198,3 +198,31 @@ if (video && muteBtn) {
         }
     });
 }
+
+
+let showAnim = gsap.from('.navbar', { 
+  yPercent: -100,
+  paused: true,
+  duration: 0.3,
+  ease: "power3.out"
+}).progress(1);
+
+ScrollTrigger.create({
+  start: "top top",
+  end: 99999,
+  onUpdate: (self) => {
+    // Check if mobile menu is active
+    const isMobileMenuOpen = mobileMenu.classList.contains('active');
+
+    // If menu is open, do nothing (keep navbar visible)
+    if (isMobileMenuOpen) return;
+
+    // self.direction === 1 means Scrolling Down
+    // self.direction === -1 means Scrolling Up
+    if (self.direction === -1) {
+      showAnim.play(); // Show navbar
+    } else {
+      showAnim.reverse(); // Hide navbar
+    }
+  }
+});
