@@ -159,14 +159,14 @@ const textElements = gsap.utils.toArray('.body-text');
 
 textElements.forEach((text) => {
     gsap.from(text, {
-        y: 20,              // Slide up slightly
-        opacity: 0,         // Fade in
+        y: 20,
+        opacity: 0,
         duration: 1,
-        ease: "power3.out", // Smooth easing
+        ease: "power3.out",
         scrollTrigger: {
             trigger: text,
-            start: "top 85%", // Starts when top of text hits 85% of viewport height
-            toggleActions: "play none none reverse" // Reverses when you scroll back up
+            start: "top 85%",
+            toggleActions: "play none none reverse"
         }
     });
 });
@@ -200,29 +200,24 @@ if (video && muteBtn) {
 }
 
 
-let showAnim = gsap.from('.navbar', { 
-  yPercent: -100,
-  paused: true,
-  duration: 0.3,
-  ease: "power3.out"
+let showAnim = gsap.from('.navbar', {
+    yPercent: -100,
+    paused: true,
+    duration: 0.3,
+    ease: "power3.out"
 }).progress(1);
 
 ScrollTrigger.create({
-  start: "top top",
-  end: 99999,
-  onUpdate: (self) => {
-    // Check if mobile menu is active
-    const isMobileMenuOpen = mobileMenu.classList.contains('active');
+    start: "top top",
+    end: 99999,
+    onUpdate: (self) => {
+        const isMobileMenuOpen = mobileMenu.classList.contains('active');
 
-    // If menu is open, do nothing (keep navbar visible)
-    if (isMobileMenuOpen) return;
-
-    // self.direction === 1 means Scrolling Down
-    // self.direction === -1 means Scrolling Up
-    if (self.direction === -1) {
-      showAnim.play(); // Show navbar
-    } else {
-      showAnim.reverse(); // Hide navbar
+        if (isMobileMenuOpen) return;
+        if (self.direction === -1) {
+            showAnim.play()
+        } else {
+            showAnim.reverse();
+        }
     }
-  }
 });
