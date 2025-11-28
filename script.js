@@ -65,25 +65,25 @@ tl.from(".logo", {
     duration: 1,
     ease: "power3.out",
 })
-.from(".nav-links li", {
-    y: -20,
-    opacity: 0,
-    stagger: 0.1,
-    duration: 0.8,
-    ease: "power3.out",
-}, "-=0.5")
-.from(".nav-right", { 
-    y: -20, 
-    opacity: 0, 
-    duration: 0.8 
-}, "-=0.8")
-.from(".hero-content > *", {
-    y: 50,
-    opacity: 0,
-    duration: 1.2,
-    stagger: 0.2,
-    ease: "power3.out",
-}, "-=0.5");
+    .from(".nav-links li", {
+        y: -20,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out",
+    }, "-=0.5")
+    .from(".nav-right", {
+        y: -20,
+        opacity: 0,
+        duration: 0.8
+    }, "-=0.8")
+    .from(".hero-content > *", {
+        y: 50,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power3.out",
+    }, "-=0.5");
 
 gsap.to(".hero-bg img", {
     yPercent: 30,
@@ -142,7 +142,7 @@ ScrollTrigger.batch(".grid-item", {
 gsap.set(".event-card", { opacity: 0, y: 50 });
 
 ScrollTrigger.batch(".event-card", {
-    start: "top 85%", 
+    start: "top 85%",
     onEnter: (batch) => gsap.to(batch, {
         opacity: 1,
         y: 0,
@@ -150,6 +150,51 @@ ScrollTrigger.batch(".event-card", {
         duration: 1,
         ease: "power3.out"
     }),
-   
-     onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 50 }) 
+
+    onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 50 })
 });
+
+
+const textElements = gsap.utils.toArray('.body-text');
+
+textElements.forEach((text) => {
+    gsap.from(text, {
+        y: 20,              // Slide up slightly
+        opacity: 0,         // Fade in
+        duration: 1,
+        ease: "power3.out", // Smooth easing
+        scrollTrigger: {
+            trigger: text,
+            start: "top 85%", // Starts when top of text hits 85% of viewport height
+            toggleActions: "play none none reverse" // Reverses when you scroll back up
+        }
+    });
+});
+
+
+const setVh = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
+window.addEventListener('resize', setVh);
+setVh();
+
+
+const video = document.getElementById("aboutVideo");
+const muteButton = document.getElementById("muteBtn")
+const muteIcon = muteBtn.querySelector('i');
+
+if (video && muteBtn) {
+    muteBtn.addEventListener('click', () => {
+        if (video.muted) {
+            video.muted = false;
+            muteIcon.classList.remove('fa-volume-xmark');
+            muteIcon.classList.add('fa-volume-high');
+        } else {
+            video.muted = true;
+            muteIcon.classList.remove('fa-volume-high');
+            muteIcon.classList.add('fa-volume-xmark');
+        }
+    });
+}
